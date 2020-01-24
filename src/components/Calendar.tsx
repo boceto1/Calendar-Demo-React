@@ -6,7 +6,7 @@ class Calendar extends Component {
     titleDays = (nameDays: string[]) =>
         nameDays.map(
             name =>
-                <div className="col-1 border border-secondary DayNames">
+                <div className="col-1 border border-secondary d-flex justify-content-center DayNames">
                     {name}
                 </div>)
 

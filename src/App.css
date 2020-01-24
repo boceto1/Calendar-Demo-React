@@ -47,6 +47,8 @@ body {
 .DayNames {
   background-color: #6BC0E4;
   font-size: medium;
+  height: 4rem;
+  padding: 1.2%;
 }
 
 .Week {
@@ -54,7 +56,7 @@ body {
 }
 
 .Schedule {
-  background-color: #F1F3F4;
+  background-color: #F7BF51;
   width: 25rem;
   height: 27rem;
 }

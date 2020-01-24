@@ -25,6 +25,7 @@ class Calendar extends Component {
                         <FontAwesomeIcon
                             icon={faSun}
                             size="2x"
+                            color="#5D4B55"
                         />
                     </div>
                 </div>
