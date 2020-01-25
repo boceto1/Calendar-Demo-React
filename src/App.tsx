@@ -1,19 +1,16 @@
 import React from 'react';
 import Calendar from './components/Calendar';
-import Schedule from './components/Schedule';
-import logojob from './assets/logojob.png';
+import Schedule from './containers/VisibleSchedule';
 import './App.css';
 
 const App: React.FC = () => {
+
   return (
     <div className="App">
       <div className="container-fluid">
         <div className="row Header">
-          <div className="col-sm-2">
-            <img src={logojob} alt="Logo" className="Logo" />
-          </div>
           <div className="col-sm-8">
-            <h1>Welcome to Jobsity Calendar</h1>
+            <h1>Welcome to Calendar</h1>
           </div>
         </div>
       </div>

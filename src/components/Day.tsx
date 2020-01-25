@@ -1,18 +1,17 @@
-import React, { useState, MouseEvent } from 'react';
-import { DayType } from '../types';
+import React, { MouseEvent } from 'react';
+import { appStore } from '../store';
 
-type Props = DayType
 
-const Day: React.FC<Props> = props => {
+const Day: React.FC = ({ isCurrentDay, date, onClick }: any) => {
 
-    const [isSelect, setIsCount] = useState(false);
-    const { date } = props;
+    //const { daySelection } = appStore.getState()
 
     const handleSelectDay = (event: MouseEvent) => {
         event.preventDefault();
-        setIsCount(!isSelect);
+        onClick();
     }
-    const selectDay = isSelect ?
+
+    const selectDay = isCurrentDay ?
         (<div className="col-1 border border-secondary Day SelectDay" onClick={handleSelectDay}>
             {date}
         </div>) :
