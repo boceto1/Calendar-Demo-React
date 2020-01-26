@@ -1,14 +1,18 @@
 import React, { MouseEvent } from 'react';
-import { appStore } from '../store';
 
 
 const Day: React.FC = ({ isCurrentDay, date, onClick }: any) => {
 
-    //const { daySelection } = appStore.getState()
-
     const handleSelectDay = (event: MouseEvent) => {
         event.preventDefault();
         onClick();
+    }
+
+    if (date === 0) {
+        return (
+            (<div className="col-1 border border-secondary bg-dark Day disabled">
+            </div>)
+        )
     }
 
     const selectDay = isCurrentDay ?

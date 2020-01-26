@@ -12,11 +12,11 @@ class Calendar extends Component {
 
     render() {
         const nameDays: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        const days1: number[] = [1, 2, 3, 4, 5, 6, 7];
-        const days2: number[] = [8, 9, 10, 11, 12, 13, 14];
-        const days3: number[] = [15, 16, 17, 18, 19, 20, 21];
-        const days4: number[] = [22, 23, 24, 25, 26, 27, 28];
-        const days5: number[] = [29, 30, 31, 1, 2, 3, 4];
+        const days1: number[] = [0, 0, 0, 1, 2, 3, 4];
+        const days2: number[] = [5, 6, 7, 8, 9, 10, 11];
+        const days3: number[] = [12, 13, 14, 15, 16, 17, 18];
+        const days4: number[] = [19, 20, 21, 22, 23, 24, 25];
+        const days5: number[] = [26, 27, 28, 29, 30, 31, 0];
         return (
             <div className="container-fluid">
                 <div className="row font-weight-bold Week">
