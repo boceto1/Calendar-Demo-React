@@ -6,6 +6,7 @@ import { Reminder } from "../types";
 import ReminderForm from "./ReminderForm";
 
 
+
 const Schedule: React.FC = ({
     currentDay,
     reminders,
