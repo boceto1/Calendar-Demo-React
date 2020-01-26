@@ -75,6 +75,14 @@ body {
   border-style: outset;
 }
 
+.Reminders {
+  width: 25rem;
+  height: 18rem;
+  overflow: auto;
+  overflow-x: hidden; 
+  overflow-y: auto;
+}
+
 .Reminder {
   margin: 1rem;
 }

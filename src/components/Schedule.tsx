@@ -42,7 +42,7 @@ const Schedule: React.FC = ({
     ) : (
             <div className="row">
                 <div className="col">
-                    <div className="container">
+                    <div className="container Reminders">
                         {reminders.map((reminder: Reminder) => (
                             <div className="row Reminder" key={reminder.id}>
                                 <div className="col-1 text-left">
@@ -51,7 +51,7 @@ const Schedule: React.FC = ({
                                 <div className="col-2 text-left">
                                     {reminder.time}
                                 </div>
-                                <div className="col-7 text-left">
+                                <div className="col-6 text-left">
                                     {reminder.title}
                                 </div>
                                 <div className="col-1 text-left">
@@ -82,7 +82,7 @@ const Schedule: React.FC = ({
         <div className="container Schedule border border-secondary">
             <div className="row  my-3">
                 <div className="col-8 tex text-left">
-                    <h4>{currentDay} de Enero 2020</h4>
+                    <h4>January 2020, {currentDay}</h4>
                 </div>
             </div>
             <hr />
