@@ -18,13 +18,14 @@ const Schedule: React.FC = ({
     const handleDeleteAllReminders = (event: MouseEvent) => {
         event.preventDefault();
         onDeleteReminderPerDayClick(currentDay)
-        alert("DELETE REMINDERS");
+        alert("DELETE ALL REMINDERS");
     }
 
     const handleDeleteReminder = (id: number) => { onDeleteReminderClick(id) }
     const handleAddReminder = (reminder: Reminder) => { onAddReminderClick(reminder) }
-    const handleUpdateReminder = (id: number, reminder: Reminder) => { onUpdateReminderClick(id, reminder) }
+    const handleUpdateReminder = (reminder: Reminder) => { onUpdateReminderClick(reminder) }
 
+    console.log(reminders);
 
     const showReminders = reminders.length === 0 ? (
         <div className="row">
@@ -66,7 +67,7 @@ const Schedule: React.FC = ({
                                         date={currentDay}
                                         typeButton="ICON_EDIT"
                                         onAddReminderClick={handleAddReminder}
-                                        onUpdateReminderClick={() => handleUpdateReminder(reminder.id, reminder)}
+                                        onUpdateReminderClick={handleUpdateReminder}
                                     />
                                 </div>
                                 <br />
@@ -87,7 +88,7 @@ const Schedule: React.FC = ({
             <hr />
             <div className="row">
                 <div className="col-8 text-left">
-                    Schedule {reminders.length}
+                    Reminders:  {reminders.length}
                 </div>
                 <div className="col-2 text-right">
                     <ReminderForm

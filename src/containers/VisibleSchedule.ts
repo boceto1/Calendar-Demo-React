@@ -20,8 +20,8 @@ const mapDispatchToProps = (dispatch: any) => {
         onAddReminderClick: (reminder: Reminder) => {
             dispatch(addReminder(reminder));
         },
-        onUpdateReminderClick: (id: number, reminder: Reminder) => {
-            dispatch(updateReminder(id, reminder));
+        onUpdateReminderClick: (reminder: Reminder) => {
+            dispatch(updateReminder(reminder.id, reminder));
         },
         onDeleteReminderClick: (id: number) => {
             dispatch(deleteReminder(id));

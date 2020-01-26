@@ -1,18 +1,17 @@
 
-import React, { Component, ChangeEvent } from 'react';
+import React, { Component } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap'
 import { Reminder } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faEdit } from '@fortawesome/free-solid-svg-icons';
 import ColorPicker from './ColorPicker';
-import reminders from '../store/reducers/reminders';
 
 interface IProps {
     date: number
     typeButton: 'ICON_ADD' | 'ICON_EDIT' | 'NORMAL',
     reminder?: Reminder,
     onAddReminderClick: (reminder: Reminder) => void,
-    onUpdateReminderClick: (id: number, reminder: Reminder) => void,
+    onUpdateReminderClick: (reminder: Reminder) => void,
 }
 
 interface IState {
@@ -22,6 +21,12 @@ interface IState {
     city: string,
     time: string,
     username: string
+}
+
+export const isCorrectData: any = (reminder: Reminder) => {
+    if (reminder.title.length > 30) return "Title is more than 30 chars"
+    if (Object.values(reminder).some(value => value === "")) return "There are empty fields"
+    return "YES"
 }
 
 class ReminderForm extends Component<IProps, IState> {
@@ -36,28 +41,19 @@ class ReminderForm extends Component<IProps, IState> {
             time: "",
             username: "",
         };
-
         this.handleChangeTitle = this.handleChangeTitle.bind(this);
         this.handleChangeUserName = this.handleChangeUserName.bind(this);
         this.handleChangeCity = this.handleChangeCity.bind(this);
         this.handleChangeTime = this.handleChangeTime.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.reminder) {
             const { color, city, user, time, title } = this.props.reminder;
             this.setState({ color, city, username: user, time, title })
         }
     }
 
-    initializeState = () => this.setState({
-        show: false,
-        color: "blue",
-        title: "",
-        city: "",
-        time: "",
-        username: "",
-    })
 
 
     handleChangeTitle(event: any) {
@@ -96,15 +92,15 @@ class ReminderForm extends Component<IProps, IState> {
         } = this.props;
 
         const { show } = this.state;
+        console.log(this.state.color);
 
         const nonce = Math.random() * (9990 - 1000) + 1000;
 
-
-        const handleClose = () => { this.initializeState(); this.setShow(false) };
+        const handleClose = () => { this.setShow(false) };
         const handleShow = () => this.setShow(true);
         const handleAddReminder = () => {
             const color = this.selectColorFromName(this.state.color);
-            onAddReminderClick({
+            const newReminder = {
                 id: parseInt(date + this.state.time + nonce),
                 title: this.state.title,
                 city: this.state.city,
@@ -112,14 +108,20 @@ class ReminderForm extends Component<IProps, IState> {
                 date,
                 time: this.state.time,
                 user: this.state.username
-            });
-            alert("The reminder was added");
-            handleClose();
+            }
+
+            if (isCorrectData(newReminder) === "YES") {
+                onAddReminderClick(newReminder);
+                alert("The reminder was added");
+                handleClose();
+            } else {
+                alert(isCorrectData(newReminder))
+            }
+
         }
 
         const handleUpdateReminder = (reminder: Reminder) => {
-            const newReminder = reminder
-            onUpdateReminderClick(newReminder.id, newReminder);
+            onUpdateReminderClick(reminder);
             alert("The reminder was updated");
             handleClose();
         }
@@ -233,7 +235,7 @@ class ReminderForm extends Component<IProps, IState> {
                             user: this.state.username,
                             date: reminder.date,
                             time: this.state.time,
-                            color: this.state.color,
+                            color: this.selectColorFromName(this.state.color),
                             city: this.state.city
                         })}>
                             Save
