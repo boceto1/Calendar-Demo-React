@@ -133,6 +133,8 @@ class ReminderForm extends Component<IProps, IState> {
                         <a href="#" onClick={handleShow}>
                             <FontAwesomeIcon
                                 icon={faPlusSquare}
+                                size="2x"
+                                color="#29B422"
                             />
                         </a>)
                 case 'ICON_EDIT':
@@ -145,7 +147,7 @@ class ReminderForm extends Component<IProps, IState> {
                 case 'NORMAL':
                 default:
                     return (
-                        <Button variant="primary" onClick={handleShow}>
+                        <Button onClick={handleShow} style={{ backgroundColor: "#29B422", border: "1px solid #29B422" }}>
                             Add a reminder
                 </Button>
                     )

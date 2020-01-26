@@ -57,6 +57,7 @@ const Schedule: React.FC = ({
                                     <a href="#" onClick={() => { handleDeleteReminder(reminder.id) }}>
                                         <FontAwesomeIcon
                                             icon={faTrashAlt}
+                                            color="#E1303E"
                                         />
                                     </a>
                                 </div>
@@ -101,6 +102,8 @@ const Schedule: React.FC = ({
                     <a href="#" onClick={handleDeleteAllReminders}>
                         <FontAwesomeIcon
                             icon={faTrashAlt}
+                            size="2x"
+                            color="#E1303E"
                         />
                     </a>
                 </div>

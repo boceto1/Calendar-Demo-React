@@ -10,7 +10,7 @@ const Day: React.FC = ({ isCurrentDay, date, onClick }: any) => {
 
     if (date === 0) {
         return (
-            (<div className="col-1 border border-secondary bg-dark Day disabled">
+            (<div className="col-1 border border-secondary NoDay" >
             </div>)
         )
     }

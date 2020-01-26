@@ -24,17 +24,26 @@ body {
   text-align: center;
 }
 
+
 .Logo {
-  width: 5rem;
-  height: 2rem;
+  margin-top: 1rem;
+  width: 6rem;
+  height: 3rem;
 }
 
 .Title{
-  display: inline-block; 
+  margin-top: 1rem;
+  text-align: left; 
 }
 
 .Day {
   background-color: #ffffff;
+  height: 5rem;
+  width: 5rem;
+}
+
+.NoDay {
+  background-color: #EBE8CC;
   height: 5rem;
   width: 5rem;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import Calendar from './components/Calendar';
 import Schedule from './containers/VisibleSchedule';
 import './App.css';
+import logo from './assets/logojob.png'
 
 const App: React.FC = () => {
 
@@ -10,7 +11,10 @@ const App: React.FC = () => {
       <div className="container-fluid">
         <div className="row Header">
           <div className="col-sm-8">
-            <h1>Welcome to Calendar</h1>
+            <h1 className="Title">Welcome to Calendar: January 2020</h1>
+          </div>
+          <div className="col-sm-4">
+            <img src={logo} className="Logo" />
           </div>
         </div>
       </div>
