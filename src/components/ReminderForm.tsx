@@ -1,48 +1,156 @@
-import React from 'react';
+
+import React, { Component, ChangeEvent } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap'
-import { useState } from 'react';
 import { Reminder } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
-
+import { faPlusSquare, faEdit } from '@fortawesome/free-solid-svg-icons';
+import ColorPicker from './ColorPicker';
+import reminders from '../store/reducers/reminders';
 
 interface IProps {
-    typeButton: 'ICON' | 'NORMAL',
+    date: number
+    typeButton: 'ICON_ADD' | 'ICON_EDIT' | 'NORMAL',
     reminder?: Reminder,
     onAddReminderClick: (reminder: Reminder) => void,
     onUpdateReminderClick: (id: number, reminder: Reminder) => void,
 }
 
-const ReminderForm = ({
-    typeButton,
-    reminder,
-    onAddReminderClick,
-    onUpdateReminderClick
-}: IProps) => {
+interface IState {
+    show: boolean
+    color: string,
+    title: string,
+    city: string,
+    time: string,
+    username: string
+}
 
-    const [show, setShow] = useState(false);
+class ReminderForm extends Component<IProps, IState> {
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    constructor(props: IProps) {
+        super(props);
+        this.state = {
+            show: false,
+            color: "blue",
+            title: "",
+            city: "",
+            time: "",
+            username: "",
+        };
 
-    const renderButton = typeButton === 'ICON' ? (
-        <a href="#" onClick={handleShow}>
-            <FontAwesomeIcon
-                icon={faPlusSquare}
-            />
-        </a>
-    ) : (
-            <Button variant="primary" onClick={handleShow}>
-                Add a reminder
-        </Button>
-        )
+        this.handleChangeTitle = this.handleChangeTitle.bind(this);
+        this.handleChangeUserName = this.handleChangeUserName.bind(this);
+        this.handleChangeCity = this.handleChangeCity.bind(this);
+        this.handleChangeTime = this.handleChangeTime.bind(this);
+    }
 
-    const renderTitle = !reminder ? "ADD REMINDER" : reminder.title;
+    componentWillMount() {
+        if (this.props.reminder) {
+            const { color, city, user, time, title } = this.props.reminder;
+            this.setState({ color, city, username: user, time, title })
+        }
+    }
+
+    initializeState = () => this.setState({
+        show: false,
+        color: "blue",
+        title: "",
+        city: "",
+        time: "",
+        username: "",
+    })
 
 
-    return (
-        <div>
-            {renderButton}
+    handleChangeTitle(event: any) {
+        this.setState({ title: event.target.value });
+    }
+
+    handleChangeUserName(event: any) {
+        this.setState({ username: event.target.value });
+    }
+
+    handleChangeCity(event: any) {
+        this.setState({ city: event.target.value });
+    }
+
+    handleChangeTime(event: any) {
+        this.setState({ time: event.target.value });
+    }
+
+    setShow = (stateShow: boolean) => (this.setState({ show: stateShow }));
+    setColor = (color: string) => (this.setState({ color }));
+
+    selectColorFromName = (color: string) => {
+        if (color === "blue") return "#84B9E5";
+        if (color === "green") return "#A1E584";
+        if (color === "orange") return "#E5BD84";
+        return "#BA84E5"
+    }
+
+    render() {
+        const {
+            typeButton,
+            date,
+            reminder,
+            onAddReminderClick,
+            onUpdateReminderClick
+        } = this.props;
+
+        const { show } = this.state;
+
+        const nonce = Math.random() * (9990 - 1000) + 1000;
+
+
+        const handleClose = () => { this.initializeState(); this.setShow(false) };
+        const handleShow = () => this.setShow(true);
+        const handleAddReminder = () => {
+            const color = this.selectColorFromName(this.state.color);
+            onAddReminderClick({
+                id: parseInt(date + this.state.time + nonce),
+                title: this.state.title,
+                city: this.state.city,
+                color,
+                date,
+                time: this.state.time,
+                user: this.state.username
+            });
+            alert("The reminder was added");
+            handleClose();
+        }
+
+        const handleUpdateReminder = (reminder: Reminder) => {
+            onUpdateReminderClick(reminder.id, reminder);
+            alert("The reminder was updated");
+            handleClose();
+        }
+
+        const renderButton = (typeButton: any) => {
+            switch (typeButton) {
+                case 'ICON_ADD':
+                    return (
+                        <a href="#" onClick={handleShow}>
+                            <FontAwesomeIcon
+                                icon={faPlusSquare}
+                            />
+                        </a>)
+                case 'ICON_EDIT':
+                    return (
+                        <a href="#" onClick={handleShow}>
+                            <FontAwesomeIcon
+                                icon={faEdit}
+                            />
+                        </a>)
+                case 'NORMAL':
+                default:
+                    return (
+                        <Button variant="primary" onClick={handleShow}>
+                            Add a reminder
+                </Button>
+                    )
+            }
+        }
+        const renderTitle = !reminder ? "ADD REMINDER" : reminder.title;
+
+        const renderForm = !reminder ? (
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>
@@ -53,23 +161,23 @@ const ReminderForm = ({
                     <Form>
                         <Form.Group controlId="formGroupTitle">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" placeholder="Enter title" />
+                            <Form.Control type="text" placeholder="Enter title" value={this.state.title} onChange={this.handleChangeTitle} />
                         </Form.Group>
                         <Form.Group controlId="formGroupUser">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" placeholder="Add username" />
+                            <Form.Control type="text" placeholder="Add username" value={this.state.username} onChange={this.handleChangeUserName} />
                         </Form.Group>
                         <Form.Group controlId="formGroupTime">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" placeholder="Add username" />
+                            <Form.Label>Time</Form.Label>
+                            <Form.Control type="time" onChange={this.handleChangeTime} />
                         </Form.Group>
                         <Form.Group controlId="formGroupCity">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" placeholder="Add username" />
+                            <Form.Label>City</Form.Label>
+                            <Form.Control type="text" placeholder="Add City" onChange={this.handleChangeCity} />
                         </Form.Group>
                         <Form.Group controlId="formGroupColor">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" placeholder="Add username" />
+                            <Form.Label>Color</Form.Label>
+                            <ColorPicker onSelectColor={this.setColor} />
                         </Form.Group>
                     </Form>
 
@@ -78,13 +186,63 @@ const ReminderForm = ({
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                         </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleAddReminder}>
                         Save
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </div>
-    );
+        ) : (
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>
+                            {renderTitle}
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form>
+                            <Form.Group controlId="formGroupTitle">
+                                <Form.Label>Title</Form.Label>
+                                <Form.Control type="text" placeholder="Enter title" value={reminder.title} onChange={this.handleChangeTitle} />
+                            </Form.Group>
+                            <Form.Group controlId="formGroupUser">
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control type="text" placeholder="Add username" value={this.state.username} onChange={this.handleChangeUserName} />
+                            </Form.Group>
+                            <Form.Group controlId="formGroupTime">
+                                <Form.Label>Time</Form.Label>
+                                <Form.Control type="time" value={this.state.time} onChange={this.handleChangeTime} />
+                            </Form.Group>
+                            <Form.Group controlId="formGroupCity">
+                                <Form.Label>City</Form.Label>
+                                <Form.Control type="text" placeholder="Add City" value={this.state.city} onChange={this.handleChangeCity} />
+                            </Form.Group>
+                            <Form.Group controlId="formGroupColor">
+                                <Form.Label>Color</Form.Label>
+                                <ColorPicker color={this.state.color} onSelectColor={this.setColor} />
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>
+                            Close
+                        </Button>
+                        <Button variant="primary" onClick={() => handleUpdateReminder(reminder)}>
+                            Save
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+            )
+
+        return (
+            <div>
+                {renderButton(typeButton)}
+                {renderForm}
+
+            </div>
+        );
+    }
+
 }
+
 
 export default ReminderForm;

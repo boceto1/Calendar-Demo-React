@@ -15,13 +15,13 @@ const Schedule: React.FC = ({
     onDeleteReminderPerDayClick
 }: any) => {
 
-
     const handleDeleteAllReminders = (event: MouseEvent) => {
         event.preventDefault();
         onDeleteReminderPerDayClick(currentDay)
         alert("DELETE REMINDERS");
     }
 
+    const handleDeleteReminder = (id: number) => { onDeleteReminderClick(id) }
     const handleAddReminder = (reminder: Reminder) => { onAddReminderClick(reminder) }
     const handleUpdateReminder = (id: number, reminder: Reminder) => { onUpdateReminderClick(id, reminder) }
 
@@ -31,6 +31,7 @@ const Schedule: React.FC = ({
             <div className="col">
                 <p>No Reminders</p>
                 <ReminderForm
+                    date={currentDay}
                     typeButton="NORMAL"
                     onAddReminderClick={handleAddReminder}
                     onUpdateReminderClick={handleUpdateReminder}
@@ -42,18 +43,33 @@ const Schedule: React.FC = ({
                 <div className="col">
                     <div className="container">
                         {reminders.map((reminder: Reminder) => (
-                            <div className="row">
-                                <div className="col-8">
+                            <div className="row Reminder" key={reminder.id}>
+                                <div className="col-1 text-left">
+                                    <span className="dot" style={{ backgroundColor: reminder.color }}></span>
+                                </div>
+                                <div className="col-2 text-left">
+                                    {reminder.time}
+                                </div>
+                                <div className="col-7 text-left">
                                     {reminder.title}
                                 </div>
-                                <div className="col-4">
-                                    <button onClick={onDeleteReminderClick(reminder.id)}>
-                                        Update
-                        </button>
-                                    <button onClick={onDeleteReminderClick(reminder.id)}>
-                                        delete
-                        </button>
+                                <div className="col-1 text-left">
+                                    <a href="#" onClick={() => { handleDeleteReminder(reminder.id) }}>
+                                        <FontAwesomeIcon
+                                            icon={faTrashAlt}
+                                        />
+                                    </a>
                                 </div>
+                                <div className="col-1 text-left">
+                                    <ReminderForm
+                                        reminder={reminder}
+                                        date={currentDay}
+                                        typeButton="ICON_EDIT"
+                                        onAddReminderClick={handleAddReminder}
+                                        onUpdateReminderClick={() => handleUpdateReminder(reminder.id, reminder)}
+                                    />
+                                </div>
+                                <br />
                             </div>
                         ))}
                     </div>
@@ -61,29 +77,22 @@ const Schedule: React.FC = ({
             </div>
         )
 
-
     return (
         <div className="container Schedule border border-secondary">
             <div className="row  my-3">
                 <div className="col-8 tex text-left">
                     <h4>{currentDay} de Enero 2020</h4>
                 </div>
-                <div className="col-4">
-                    <FontAwesomeIcon
-                        icon={faSun}
-                        size="2x"
-                        color="#5D4B55"
-                    />
-                </div>
             </div>
             <hr />
             <div className="row">
                 <div className="col-8 text-left">
-                    Schedule
-                    </div>
+                    Schedule {reminders.length}
+                </div>
                 <div className="col-2 text-right">
                     <ReminderForm
-                        typeButton="ICON"
+                        date={currentDay}
+                        typeButton="ICON_ADD"
                         onAddReminderClick={handleAddReminder}
                         onUpdateReminderClick={handleUpdateReminder}
                     />
@@ -98,7 +107,6 @@ const Schedule: React.FC = ({
             </div>
             {showReminders}
         </div>
-
     )
 }
 

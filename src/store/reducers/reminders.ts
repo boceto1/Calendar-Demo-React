@@ -4,7 +4,7 @@ const initialReminder: Reminder = {
     id: 1,
     city: "Quito",
     date: 25,
-    color: "#ffffff",
+    color: "#84B9E5",
     time: "11:00-12:00",
     title: "Test Title",
     user: "Jean Karlo"
@@ -12,10 +12,18 @@ const initialReminder: Reminder = {
 
 const reminders = (state = [initialReminder], action: any) => {
     switch (action.type) {
-        case 'ADD_TODO':
+        case 'ADD_REMINDER':
             return [
                 ...state,
-                action.reminder
+                {
+                    id: action.reminder.id,
+                    title: action.reminder.title,
+                    city: action.reminder.city,
+                    color: action.reminder.color,
+                    date: action.reminder.date,
+                    time: action.reminder.time,
+                    user: action.reminder.user
+                }
             ]
         case 'UPDATE_REMINDER':
             return state.map((reminder: Reminder) => {
