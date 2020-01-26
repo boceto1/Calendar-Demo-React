@@ -118,7 +118,8 @@ class ReminderForm extends Component<IProps, IState> {
         }
 
         const handleUpdateReminder = (reminder: Reminder) => {
-            onUpdateReminderClick(reminder.id, reminder);
+            const newReminder = reminder
+            onUpdateReminderClick(newReminder.id, newReminder);
             alert("The reminder was updated");
             handleClose();
         }
@@ -202,7 +203,7 @@ class ReminderForm extends Component<IProps, IState> {
                         <Form>
                             <Form.Group controlId="formGroupTitle">
                                 <Form.Label>Title</Form.Label>
-                                <Form.Control type="text" placeholder="Enter title" value={reminder.title} onChange={this.handleChangeTitle} />
+                                <Form.Control type="text" placeholder="Enter title" value={this.state.title} onChange={this.handleChangeTitle} />
                             </Form.Group>
                             <Form.Group controlId="formGroupUser">
                                 <Form.Label>Username</Form.Label>
@@ -226,7 +227,15 @@ class ReminderForm extends Component<IProps, IState> {
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={() => handleUpdateReminder(reminder)}>
+                        <Button variant="primary" onClick={() => handleUpdateReminder({
+                            id: reminder.id,
+                            title: this.state.title,
+                            user: this.state.username,
+                            date: reminder.date,
+                            time: this.state.time,
+                            color: this.state.color,
+                            city: this.state.city
+                        })}>
                             Save
                     </Button>
                     </Modal.Footer>

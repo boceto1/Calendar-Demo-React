@@ -1,16 +1,7 @@
 import { Reminder } from "../../types";
 
-const initialReminder: Reminder = {
-    id: 1,
-    city: "Quito",
-    date: 25,
-    color: "#84B9E5",
-    time: "11:00-12:00",
-    title: "Test Title",
-    user: "Jean Karlo"
-}
 
-const reminders = (state = [initialReminder], action: any) => {
+const reminders = (state = [], action: any) => {
     switch (action.type) {
         case 'ADD_REMINDER':
             return [
