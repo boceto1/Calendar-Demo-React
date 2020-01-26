@@ -24,7 +24,6 @@ const reminders = (state = [], action: any) => {
         case 'DELETE_REMINDER':
             return state.filter((reminder: Reminder) => reminder.id !== action.id)
         case 'DELETE_REMINDER_PER_DATE':
-            console.log("DELETE ALL");
             return state.filter((reminder: Reminder) => reminder.date !== action.date)
         default:
             return state

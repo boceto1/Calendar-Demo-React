@@ -93,7 +93,6 @@ class ReminderForm extends Component<IProps, IState> {
         } = this.props;
 
         const { show } = this.state;
-        console.log(this.state.color);
 
         const nonce = Math.random() * (9990 - 1000) + 1000;
 

@@ -25,8 +25,6 @@ const Schedule: React.FC = ({
     const handleAddReminder = (reminder: Reminder) => { onAddReminderClick(reminder) }
     const handleUpdateReminder = (reminder: Reminder) => { onUpdateReminderClick(reminder) }
 
-    console.log(reminders);
-
     const showReminders = reminders.length === 0 ? (
         <div className="row">
             <div className="col">

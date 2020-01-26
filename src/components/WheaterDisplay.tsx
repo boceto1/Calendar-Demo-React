@@ -22,11 +22,9 @@ class WheaterDisplay extends React.Component<IProps, IState> {
     }
 
     componentDidMount() {
-        console.log(process.env.API_KEY);
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.props.city}&appid=${API_KEY}`)
             .then(res => res.json())
             .then((data) => {
-                console.log(data.weather)
                 this.setState({ weather: data.weather[0].main })
             })
             .catch(console.log)
