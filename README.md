@@ -3,10 +3,7 @@
 ## Description
 
 Creation of a demo calendar application using React
-Rendering a single month view of a calendar for the current month – along
-with the lines of the below illustration:
-
-Illustration
+Rendering a single month view of a calendar for the current month – along.
 
 ## Solution
 
@@ -26,19 +23,9 @@ weather forecast (ex. Rain) for the date of the calendar reminder based on the c
 entered day and time. Also, include a city.
 
 ### Opcional Features
-- [] Expand the calendar to support more than the current month.
+- [ ] Expand the calendar to support more than the current month.
 - [x] Properly handle overflow when multiple reminders appear on the same date.
 - [x] Functionality to delete one or ALL the reminders for a specific day
-
-## Screenshots
-
-### Add Reminder
-
-### Edit Reminder
-
-### Delete Reminder
-
-### Check Weather
 
 ## Usage
 
