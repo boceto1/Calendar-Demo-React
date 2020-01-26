@@ -29,7 +29,7 @@ const Schedule: React.FC = ({
     const showReminders = reminders.length === 0 ? (
         <div className="row">
             <div className="col">
-                <p>No Reminders</p>
+                <p style={{ fontStyle: "italic" }}>No Reminders</p>
                 <ReminderForm
                     date={currentDay}
                     typeButton="NORMAL"

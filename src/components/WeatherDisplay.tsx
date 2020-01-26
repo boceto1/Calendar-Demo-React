@@ -11,7 +11,7 @@ interface IState {
     weather: string
 }
 
-class WheaterDisplay extends React.Component<IProps, IState> {
+class WeatherDisplay extends React.Component<IProps, IState> {
 
     constructor(props: IProps) {
         super(props);
@@ -37,7 +37,7 @@ class WheaterDisplay extends React.Component<IProps, IState> {
         return (
             <div>
                 <Button variant="primary" onClick={this.handleShow}>
-                    See the setWeather
+                    Check the weather
                 </Button>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
@@ -56,4 +56,4 @@ class WheaterDisplay extends React.Component<IProps, IState> {
 
 }
 
-export default WheaterDisplay;
+export default WeatherDisplay;

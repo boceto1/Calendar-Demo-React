@@ -5,7 +5,7 @@ import { Reminder } from '../types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare, faEdit } from '@fortawesome/free-solid-svg-icons';
 import ColorPicker from './ColorPicker';
-import WheaterDisplay from './WheaterDisplay';
+import WeatherDisplay from './WeatherDisplay';
 
 interface IProps {
     date: number
@@ -228,7 +228,7 @@ class ReminderForm extends Component<IProps, IState> {
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <WheaterDisplay city={this.state.city} />
+                        <WeatherDisplay city={this.state.city} />
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
